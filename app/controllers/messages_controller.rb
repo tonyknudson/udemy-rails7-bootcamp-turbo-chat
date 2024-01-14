@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: %i[ show edit update destroy ]
+  before_action :set_room
 
   # GET /messages or /messages.json
   def index
@@ -66,5 +67,9 @@ class MessagesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def message_params
       params.require(:message).permit(:content, :room_id, :user_id)
+    end
+
+    def set_room
+      @room = Room.find(params[:room_id])
     end
 end
